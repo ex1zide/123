@@ -1,0 +1,270 @@
+{
+    "@@locale": "kk",
+    "navHome": "Басты бет",
+    "navAiLawyer": "Жасанды интеллект (AI)",
+    "navLawyers": "Заңгерлер",
+    "navProfile": "Профиль",
+    "authAppName": "LegalHelp KZ",
+    "authSubtitleSignIn": "Қайта оралуыңызбен",
+    "authSubtitleSignUp": "Тіркелу",
+    "authEmailLabel": "Электрондық пошта (Email)",
+    "authEmailError": "Дұрыс пошта енгізіңіз",
+    "authPasswordLabel": "Құпия сөз",
+    "authPasswordError": "Кем дегенде 6 таңба",
+    "authEmptyFieldsError": "Барлық өрістерді толтырыңыз",
+    "authSignIn": "Кіру",
+    "authSignUp": "Тіркелу",
+    "authSocialDivider": "Немесе арқылы кіріңіз",
+    "authNoAccount": "Аккаунтыңыз жоқ па? ",
+    "authHasAccount": "Аккаунтыңыз бар ма? ",
+    "authSwitchToSignUp": "Тіркелу",
+    "authSwitchToSignIn": "Кіру",
+    "dashboardMorning": "Қайырлы таң",
+    "dashboardDay": "Қайырлы күн",
+    "dashboardEvening": "Қайырлы кеш",
+    "dashboardNight": "Қайырлы түн",
+    "dashboardAiHelp": "Бүгін AI қалай көмектесе алады?",
+    "dashboardQuickActions": "Жылдам әрекеттер",
+    "dashboardDocs": "Құжаттар",
+    "dashboardViewAll": "Барлығын көру",
+    "dashboardCases": "Істер",
+    "dashboardError": "Жүктеу қатесі: {error}",
+    "@dashboardError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "dashboardRetry": "Қайталау",
+    "quickScanner": "Паспортты сканерлеу",
+    "quickScannerSub": "OCR Тану",
+    "quickFindLawyer": "Заңгерді табу",
+    "quickFindLawyerSub": "Маркетплейс",
+    "quickSos": "Шұғыл қоңырау",
+    "quickSosSub": "Адвокатты шақыру",
+    "aiSearchTitle": "ЖИ-ға құқықтық сұрақ қою...",
+    "aiSearchSubtitle": "Тегін • 2 секундта жауап",
+    "scannerTitle": "Ақылды Сканер",
+    "scannerEmptyTitle": "Сканерлеуге дайын",
+    "scannerEmptyDesc": "Мәтінді және деректерді автоматты түрде тану үшін камераңызды құжатқа немесе паспортқа (ҚР ЖСН) бағыттаңыз.",
+    "scannerButton": "СКАНЕРЛЕУ",
+    "scannerProcessing": "ЖИ құжатты талдауда...",
+    "scannerAuthRequired": "Құжатты сақтау үшін кіріңіз",
+    "scannerDocTitle": "Сканерленген құжат",
+    "scannerSaved": "Құжат сәтті сақталды",
+    "scannerSaveError": "Сақтау қатесі: {error}",
+    "@scannerSaveError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "scannerNoText": "Мәтін табылмады. Қайта көріңіз.",
+    "scannerCopy": "Көшіру",
+    "scannerCopied": "Мәтін алмасу буферіне көшірілді",
+    "scannerSave": "Сақтау",
+    "scannerReset": "Болдырмау және қайта сканерлеу",
+    "chatTitle": "ЖИ-Кеңесші",
+    "chatTyping": "ЖИ жазуда...",
+    "chatEmptyTitle": "Диалогты бастаңыз",
+    "chatEmptySubtitle": "Құқықтық мәселеңізді жазыңыз.\nЖИ ҚР заңдарын талдап, нақты жауап береді.",
+    "chatInputHint": "Мәселеңізді сипаттаңыз...",
+    "paywallTitle": "Премиум рұқсат",
+    "paywallSubtitle": "ЖИ кеңестерін шектеусіз алыңыз",
+    "paywallBenefit1": "Шектеусіз хабарламалар",
+    "paywallBenefit2": "Басым жауап",
+    "paywallBenefit3": "Сот тәжірибесін талдау",
+    "paywallCta": "Жазылуды ресімдеу",
+    "paywallDismiss": "Кейінірек",
+    "marketplaceTitle": "Заңгерді табу",
+    "marketplaceError": "Жүктеу қатесі: {error}",
+    "@marketplaceError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "marketplaceEmpty": "Қолжетімді заңгерлер жоқ",
+    "marketplaceReviews": "{count} пікір",
+    "@marketplaceReviews": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "marketplaceRate": "{rate} ₸/сағ",
+    "@marketplaceRate": {
+        "placeholders": {
+            "rate": {
+                "type": "int"
+            }
+        }
+    },
+    "marketplaceContact": "БАЙЛАНЫСУ",
+    "profileTitle": "Профиль",
+    "profileGuestInitial": "Қ",
+    "profileGuest": "Қонақ",
+    "profileUser": "Пайдаланушы",
+    "profileGuestEmail": "Деректерді сақтау үшін кіріңіз",
+    "profileBasicPlan": "Негізгі тариф",
+    "profileFreeQueries": "Билет саны: 3",
+    "profileUpgrade": "Pro алу",
+    "profileMyDocuments": "Менің құжаттарым",
+    "profileHistory": "Қызметтер тарихы",
+    "profileSubscription": "Жазылымды басқару",
+    "profileSupport": "Қолдау қызметі",
+    "profileLogin": "Аккаунтқа кіру",
+    "profileLogout": "Шығу",
+    "settingsTitle": "Баптаулар",
+    "settingsSectionMain": "НЕГІЗГІ",
+    "settingsPushTitle": "Push-хабарламалар",
+    "settingsPushSubtitle": "Заңгерлер мен ЖИ жауаптарын алу",
+    "settingsLanguageTitle": "Интерфейс тілі",
+    "settingsLanguageKazakh": "Қазақша",
+    "settingsLanguageRussian": "Русский",
+    "settingsChooseLanguage": "Тілді таңдаңыз",
+    "settingsSectionDesign": "РЕСІМДЕУ",
+    "settingsDarkThemeTitle": "Қараңғы тақырып (Gold Premium)",
+    "settingsDarkThemeSubtitle": "OLED экрандарға оңтайландырылған",
+    "settingsSectionInfo": "АҚПАРАТ",
+    "settingsPrivacy": "Құпиялылық саясаты",
+    "settingsTerms": "Пайдаланушы келісімі",
+    "docsTitle": "Менің құжаттарым",
+    "docsFab": "Жаңа сканерлеу",
+    "docsFabSnackbar": "Сканер ашылуда...",
+    "docsError": "Қате: {error}",
+    "@docsError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "docsEmpty": "Сізде әлі сақталған құжаттар жоқ",
+    "docsUntitled": "Атаусыз",
+    "docsJustNow": "Жаңа ғана",
+    "docsAdded": "Қосылды {date}",
+    "@docsAdded": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "historyTitle": "Қызметтер тарихы",
+    "historyError": "Қате: {error}",
+    "@historyError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "historyEmpty": "Кеңес беру тарихы бос",
+    "historyAiConsult": "ЖИ-мен кеңес",
+    "historyLawyerConsult": "Заңгермен кеңес",
+    "historySoon": "Жақында",
+    "historyPending": "Өңделуде",
+    "historyCompleted": "Аяқталды",
+    "subTitle": "Жазылым",
+    "subChoosePlan": "Тарифіңізді таңдаңыз",
+    "subDescription": "ЖИ-ді тегін қолданып көріңіз немесе Premium арқылы барлық мүмкіндіктерді ашыңыз",
+    "subPerMonth": "/ ай",
+    "subFreeDesc": "Күніне 3 сұрауға дейін, негізгі функциялар.",
+    "subProDesc": "Шектеусіз ЖИ-кеңесшісі, басым жауаптар және толық құпиялылық.",
+    "subBusinessDesc": "API интеграциясы, келісімшарт үлгілері және командалық қолжетімділік.",
+    "subPaymentInDev": "Қап... Төлем жүйесі (Kaspi) әзірленуде",
+    "subB2bInDev": "B2B шешімдері үшін бізбен байланысыңыз",
+    "subRecommended": "🔥 ҰСЫНАМЫЗ",
+    "subCurrentPlan": "АҒЫМДАҒЫ",
+    "subUpgrade": "ӨТУ",
+    "supportTitle": "Қолдау",
+    "supportHeader": "Мәселе бар ма?",
+    "supportContactOp": "Операторға жазу",
+    "supportTelegramSnack": "Telegram қолдау чаты ашылуда...",
+    "supportFaqHeader": "ЖИІ ҚОЙЫЛАТЫН СҰРАҚТАР",
+    "supportFaq1Q": "ЖИ-кеңесшісі қалай жұмыс істейді?",
+    "supportFaq1A": "Біздің ЖИ ҚР заңнамалық базасы мен сот тәжірибесінде оқытылған. Ол сұрағыңызды талдайды және заңдарға сілтемелер береді.",
+    "supportFaq2Q": "Мен нақты заңгерді жалдай аламын ба?",
+    "supportFaq2A": "Иә, егер ЖИ жауабы жеткіліксіз болса, \"Заңгерлер\" бөліміне өтіп, маман таңдай аласыз.",
+    "supportFaq3Q": "Жазылымды қалай тоқтатуға болады?",
+    "supportFaq3A": "Жазылымды профиліңіздегі \"Жазылым басқармасы\" бөлімінен тоқтата аласыз.",
+    "supportFaq4Q": "Менің деректерім қорғалған ба?",
+    "supportFaq4A": "Біз AES-256 шифрлауын қолданамыз және деректерді қорғалған серверлерде сақтаймыз.",
+    "sosTitle": "SOS Шұғыл көмек",
+    "sosDialerError": "Қоңырау шалу бағдарламасы ашылмады",
+    "sosCallError": "Қоңырау шалу қатесі: {error}",
+    "@sosCallError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "sosButton": "АДВОКАТҚА\nҚОҢЫРАУ ШАЛУ",
+    "sosOfflineHeader": "ҰСТАУ КЕЗІНДЕГІ ОФФЛАЙН ЖАДНАМА",
+    "sosRule1Title": "Сіздің қоңырау шалу құқығыңыз бар",
+    "sosRule1Content": "ҚР ҚІЖК 131-бабына сәйкес, ұсталғаннан кейін адвокатқа немесе туыстарыңызға дереу телефон соғуға құқығыңыз бар.",
+    "sosRule2Title": "Үндемеу құқығы",
+    "sosRule2Content": "ҚР Конституциясының 77-бабына сәйкес, өзіңізге қарсы түсініктеме бермеуге құқығыңыз бар. Адвокаттың қатысуын талап етіңіз.",
+    "sosRule3Title": "Хаттаманы мұқият оқыңыз",
+    "sosRule3Content": "Ешқашан бос парақтарға немесе сіз келіспеген құжаттарға қол қоймаңыз. Келіспесеңіз — жазбаша «Келіспеймін» деп жазыңыз.",
+    "dashboardTitle": "Басты бет",
+    "dashboardOfflineBanner": "Офлайн режим. Тек сақталған құжаттар мен SOS қолжетімді.",
+    "dashboardSectionUrgent": "Шұғыл",
+    "dashboardSectionAdvice": "Кеңестер",
+    "dashboardSectionActivity": "Белсенділік",
+    "dashboardGreetingNight": "Қайырлы түн",
+    "dashboardGreetingMorning": "Қайырлы таң",
+    "dashboardGreetingAfternoon": "Қайырлы күн",
+    "dashboardGreetingEvening": "Қайырлы кеш",
+    "dashboardUser": "Пайдаланушы",
+    "dashboardSubtitle": "Қош келдіңіз, {name}",
+    "@dashboardSubtitle": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "dashboardFreePlan": "Базалық жоспар",
+    "dashboardAvailable": "Қолжетімді: {maxQueries} ішінен {available}",
+    "@dashboardAvailable": {
+        "placeholders": {
+            "available": {
+                "type": "int"
+            },
+            "maxQueries": {
+                "type": "int"
+            }
+        }
+    },
+    "adviceTitle1": "ЖШС қалай ашуға болады",
+    "adviceSubtitle1": "Қадамдық нұсқаулық",
+    "adviceTitle2": "2026 жылғы салықтар",
+    "adviceSubtitle2": "Не өзгерді?",
+    "adviceTitle3": "Еңбек шарты",
+    "adviceSubtitle3": "Үлгілер мен ережелер",
+    "activityConsultation": "ЖИ-мен кеңесу",
+    "activityContractAnalysis": "Шартты талдау",
+    "activityToday": "Бүгін",
+    "activityYesterday": "Кеше",
+    "dashboardErrorTitle": "Деректерді жүктеу қатесі",
+    "subFreeFeat1": "ЖИ-ға 10 сұрауға дейін",
+    "subFreeFeat2": "Заңгерлерді негізгі іздеу",
+    "subFreeFeat3": "Құжат сканері",
+    "subProFeat1": "Шексіз ЖИ-Кеңесші",
+    "subProFeat2": "Шарттар мен құжаттарды талдау",
+    "subProFeat3": "2 секундтағы басымдықты жауаптар",
+    "subProFeat4": "Толық құпиялылық",
+    "subBizFeat1": "Pro-дан бәрі",
+    "subBizFeat2": "API интеграциясы",
+    "subBizFeat3": "Шарт үлгілері",
+    "subBizFeat4": "10 заңгерге дейін командалық қолжетімділік",
+    "paywallLimitReached": "Тегін сұраулар лимиті таусылды",
+    "paywallUpgradeHint": "ЖИ-ға шексіз қолжетімділік үшін PRO-ға көшіңіз"
+}

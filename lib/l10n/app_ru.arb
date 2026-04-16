@@ -1,0 +1,271 @@
+{
+    "@@locale": "ru",
+    "navHome": "Главная",
+    "navAiLawyer": "ИИ-Юрист",
+    "navLawyers": "Юристы",
+    "navProfile": "Профиль",
+    "authAppName": "LegalHelp KZ",
+    "authSubtitleSignIn": "С возвращением",
+    "authSubtitleSignUp": "Создать аккаунт",
+    "authEmailLabel": "Email",
+    "authEmailError": "Введите корректный email",
+    "authPasswordLabel": "Пароль",
+    "authPasswordError": "Минимум 6 символов",
+    "authEmptyFieldsError": "Пожалуйста, заполните все поля",
+    "authSignIn": "Войти",
+    "authSignUp": "Создать аккаунт",
+    "authSocialDivider": "Или войдите через",
+    "authNoAccount": "Нет аккаунта? ",
+    "authHasAccount": "Уже есть аккаунт? ",
+    "authSwitchToSignUp": "Регистрация",
+    "authSwitchToSignIn": "Войти",
+    "dashboardMorning": "Доброе утро",
+    "dashboardDay": "Добрый день",
+    "dashboardEvening": "Добрый вечер",
+    "dashboardNight": "Доброй ночи",
+    "dashboardAiHelp": "Чем ИИ может помочь сегодня?",
+    "dashboardQuickActions": "Быстрые действия",
+    "dashboardDocs": "Документы",
+    "dashboardViewAll": "Все",
+    "dashboardCases": "Дела",
+    "dashboardError": "Ошибка загрузки: {error}",
+    "@dashboardError": {
+        "placeholders": {
+            "error": {
+                "type": "String",
+                "example": "Network error"
+            }
+        }
+    },
+    "dashboardRetry": "Повторить",
+    "quickScanner": "Скан паспорта",
+    "quickScannerSub": "OCR Распознавание",
+    "quickFindLawyer": "Найти юриста",
+    "quickFindLawyerSub": "Маркетплейс",
+    "quickSos": "Экстренно",
+    "quickSosSub": "Вызов адвоката",
+    "aiSearchTitle": "Задать правовой вопрос ИИ...",
+    "aiSearchSubtitle": "Бесплатно • Ответ за 2 секунды",
+    "scannerTitle": "Умный Сканер",
+    "scannerEmptyTitle": "Готов к сканированию",
+    "scannerEmptyDesc": "Наведите камеру на документ или паспорт (УДЛ RK), чтобы ИИ распознал текст и данные автоматически.",
+    "scannerButton": "СКАНИРОВАТЬ",
+    "scannerProcessing": "ИИ анализирует документ...",
+    "scannerAuthRequired": "Войдите, чтобы сохранить документ",
+    "scannerDocTitle": "Отсканированный документ",
+    "scannerSaved": "Документ успешно сохранен",
+    "scannerSaveError": "Ошибка сохранения: {error}",
+    "@scannerSaveError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "scannerNoText": "Текст не найден. Попробуйте еще раз.",
+    "scannerCopy": "Копировать",
+    "scannerCopied": "Текст скопирован в буфер обмена",
+    "scannerSave": "Сохранить",
+    "scannerReset": "Сбросить и сканировать заново",
+    "chatTitle": "ИИ-Консультант",
+    "chatTyping": "ИИ печатает...",
+    "chatEmptyTitle": "Начните диалог",
+    "chatEmptySubtitle": "Напишите ваш правовой вопрос.\nИИ проанализирует законы РК и даст точный ответ.",
+    "chatInputHint": "Опишите вашу проблему...",
+    "paywallTitle": "Премиум доступ",
+    "paywallSubtitle": "Получите неограниченные консультации ИИ",
+    "paywallBenefit1": "Безлимитные сообщения",
+    "paywallBenefit2": "Приоритетный ответ",
+    "paywallBenefit3": "Анализ судебной практики",
+    "paywallCta": "Оформить подписку",
+    "paywallDismiss": "Позже",
+    "marketplaceTitle": "Найти юриста",
+    "marketplaceError": "Ошибка загрузки: {error}",
+    "@marketplaceError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "marketplaceEmpty": "Нет доступных юристов",
+    "marketplaceReviews": "{count} отзывов",
+    "@marketplaceReviews": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "marketplaceRate": "{rate} ₸/час",
+    "@marketplaceRate": {
+        "placeholders": {
+            "rate": {
+                "type": "int"
+            }
+        }
+    },
+    "marketplaceContact": "СВЯЗАТЬСЯ",
+    "profileTitle": "Профиль",
+    "profileGuestInitial": "Г",
+    "profileGuest": "Гость",
+    "profileUser": "Пользователь",
+    "profileGuestEmail": "Войдите для сохранения данных",
+    "profileBasicPlan": "Базовый тариф",
+    "profileFreeQueries": "Осталось бесплатных запросов: 3",
+    "profileUpgrade": "Получить Pro",
+    "profileMyDocuments": "Мои документы",
+    "profileHistory": "История услуг",
+    "profileSubscription": "Управление подпиской",
+    "profileSupport": "Служба поддержки",
+    "profileLogin": "Войти в аккаунт",
+    "profileLogout": "Выйти",
+    "settingsTitle": "Настройки",
+    "settingsSectionMain": "ОСНОВНЫЕ",
+    "settingsPushTitle": "Push-уведомления",
+    "settingsPushSubtitle": "Получать ответы юристов и ИИ",
+    "settingsLanguageTitle": "Язык интерфейса",
+    "settingsLanguageKazakh": "Қазақша",
+    "settingsLanguageRussian": "Русский",
+    "settingsChooseLanguage": "Выберите язык",
+    "settingsSectionDesign": "ОФОРМЛЕНИЕ",
+    "settingsDarkThemeTitle": "Темная тема (Gold Premium)",
+    "settingsDarkThemeSubtitle": "Оптимизировано для OLED экранов",
+    "settingsSectionInfo": "ИНФОРМАЦИЯ",
+    "settingsPrivacy": "Политика конфиденциальности",
+    "settingsTerms": "Пользовательское соглашение",
+    "docsTitle": "Мои документы",
+    "docsFab": "Новый скан",
+    "docsFabSnackbar": "Открываем сканер...",
+    "docsError": "Ошибка: {error}",
+    "@docsError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "docsEmpty": "У вас пока нет сохраненных документов",
+    "docsUntitled": "Без названия",
+    "docsJustNow": "Только что",
+    "docsAdded": "Добавлен {date}",
+    "@docsAdded": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "historyTitle": "История услуг",
+    "historyError": "Ошибка: {error}",
+    "@historyError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "historyEmpty": "История консультаций пуста",
+    "historyAiConsult": "Консультация с ИИ",
+    "historyLawyerConsult": "Консультация юриста",
+    "historySoon": "Скоро",
+    "historyPending": "В обработке",
+    "historyCompleted": "Завершено",
+    "subTitle": "Подписка",
+    "subChoosePlan": "Выберите свой тариф",
+    "subDescription": "Бесплатно пробуйте ИИ или откройте все возможности с Premium",
+    "subPerMonth": "/ мес",
+    "subFreeDesc": "До 3 запросов к ИИ в день, базовые функции.",
+    "subProDesc": "Безлимитный ИИ-Консультант, приоритетные ответы и полная конфиденциальность.",
+    "subBusinessDesc": "Интеграция по API, шаблоны договоров и командный доступ.",
+    "subPaymentInDev": "Упс... Платежный шлюз (Kaspi) в разработке",
+    "subB2bInDev": "Свяжитесь с нами для B2B решений",
+    "subRecommended": "🔥 РЕКОМЕНДУЕМ",
+    "subCurrentPlan": "ТЕКУЩИЙ",
+    "subUpgrade": "ПЕРЕЙТИ",
+    "supportTitle": "Поддержка",
+    "supportHeader": "Возникла проблема?",
+    "supportContactOp": "Написать оператору",
+    "supportTelegramSnack": "Открываем Telegram-чата поддержки...",
+    "supportFaqHeader": "ЧАСТЫЕ ВОПРОСЫ (FAQ)",
+    "supportFaq1Q": "Как работает ИИ-консультант?",
+    "supportFaq1A": "Наш ИИ обучен на законодательной базе РК и судебной практике. Он анализирует ваш вопрос и выдает ответ со ссылками на законы. До 3 запросов в день бесплатно.",
+    "supportFaq2Q": "Могу ли я нанять реального юриста?",
+    "supportFaq2A": "Да, если ответ ИИ вам недостаточен, вы можете перейти в раздел \"Юристы\" и выбрать специалиста по нужной отрасли права.",
+    "supportFaq3Q": "Как отменить подписку?",
+    "supportFaq3A": "Подписку можно отменить в разделе \"Управление подпиской\" в вашем профиле.",
+    "supportFaq4Q": "Мои данные защищены?",
+    "supportFaq4A": "Мы используем шифрование AES-256 и храним данные на защищенных серверах.",
+    "sosTitle": "SOS Экстренная помощь",
+    "sosDialerError": "Не удалось открыть звонилку",
+    "sosCallError": "Ошибка вызова: {error}",
+    "@sosCallError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "sosButton": "ПОЗВОНИТЬ\nАДВОКАТУ",
+    "sosOfflineHeader": "ОФФЛАЙН ПАМЯТКА ПРИ ЗАДЕРЖАНИИ",
+    "sosRule1Title": "Вы имеете право на звонок",
+    "sosRule1Content": "Согласно статье 131 УПК РК, вы имеете право на один телефонный звонок адвокату или родственникам немедленно после задержания.",
+    "sosRule2Title": "Право хранить молчание",
+    "sosRule2Content": "В соответствии со статьей 77 Конституции РК, вы вправе не давать показания против себя. Требуйте присутствия адвоката.",
+    "sosRule3Title": "Внимательно читайте протокол",
+    "sosRule3Content": "Никогда не подписывайте пустые листы или документы, если не согласны с их содержанием. Если не согласны — пишите «Не согласен» письменно.",
+ "dashboardTitle": "Главная",
+  "dashboardOfflineBanner": "Офлайн режим. Доступны только сохраненные документы и SOS.",
+  "dashboardSectionUrgent": "Срочно",
+  "dashboardSectionAdvice": "Советы",
+  "dashboardSectionActivity": "Активность",
+  "dashboardGreetingNight": "Доброй ночи",
+  "dashboardGreetingMorning": "Доброе утро",
+  "dashboardGreetingAfternoon": "Добрый день",
+  "dashboardGreetingEvening": "Добрый вечер",
+  "dashboardUser": "Пользователь",
+  "dashboardSubtitle": "Рады видеть вас, {name}",
+  "@dashboardSubtitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "dashboardFreePlan": "Базовый план",
+  "dashboardAvailable": "Доступно: {available} из {maxQueries}",
+  "@dashboardAvailable": {
+    "placeholders": {
+      "available": {
+        "type": "int"
+      },
+      "maxQueries": {
+        "type": "int"
+      }
+    }
+  },
+  "adviceTitle1": "Как открыть ТОО",
+  "adviceSubtitle1": "Пошаговая инструкция",
+  "adviceTitle2": "Налоги 2026",
+  "adviceSubtitle2": "Что изменилось?",
+  "adviceTitle3": "Трудовой договор",
+  "adviceSubtitle3": "Шаблоны и правила",
+  "activityConsultation": "Консультация с ИИ",
+  "activityContractAnalysis": "Анализ договора",
+  "activityToday": "Сегодня",
+  "activityYesterday": "Вчера",
+  "dashboardErrorTitle": "Ошибка загрузки данных",
+    "subFreeFeat1": "До 10 запросов к ИИ",
+    "subFreeFeat2": "Базовый поиск юристов",
+    "subFreeFeat3": "Сканер документов",
+    "subProFeat1": "Безлимитный ИИ-Консультант",
+    "subProFeat2": "Анализ договоров и документов",
+    "subProFeat3": "Приоритетные ответы за 2 секунды",
+    "subProFeat4": "Полная конфиденциальность",
+    "subBizFeat1": "Всё из Pro",
+    "subBizFeat2": "API интеграция",
+    "subBizFeat3": "Шаблоны договоров",
+    "subBizFeat4": "Командный доступ до 10 юристов",
+    "paywallLimitReached": "Лимит бесплатных запросов исчерпан",
+    "paywallUpgradeHint": "Перейдите на PRO для безлимитного доступа к ИИ"
+}

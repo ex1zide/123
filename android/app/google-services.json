@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "119118805198",
+    "project_id": "legalai-eba3b",
+    "storage_bucket": "legalai-eba3b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119118805198:android:fb90453c6d10858b25389f",
+        "android_client_info": {
+          "package_name": "kz.legalhelp.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_LxTOEZdNn-HenVBcq8NL-1gFlmD5n_M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

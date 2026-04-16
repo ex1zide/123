@@ -1,0 +1,51 @@
+name: app
+description: "LegalHelp KZ — Premium AI-Powered Legal Assistance Platform"
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.11.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.20.0
+
+  # State Management
+  flutter_riverpod: ^2.6.1
+  riverpod_annotation: ^2.6.1
+
+  # Routing
+  go_router: ^14.8.1
+
+  # Firebase
+  firebase_core: ^4.7.0
+  firebase_auth: ^6.4.0
+  cloud_firestore: ^6.3.0
+  firebase_storage: ^13.3.0
+  firebase_app_check: ^0.4.3
+
+  # UI / Design
+  google_fonts: ^6.2.1
+  shimmer: ^3.0.0
+  google_generative_ai: ^0.4.7
+  connectivity_plus: ^7.1.1
+  url_launcher: ^6.3.2
+  shared_preferences: ^2.5.5
+  image_picker: ^1.2.1
+  google_mlkit_text_recognition: ^0.15.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  riverpod_generator: ^2.6.3
+  build_runner: ^2.4.15
+  custom_lint:
+  riverpod_lint: ^2.6.3
+
+flutter:
+  uses-material-design: true
+  generate: true

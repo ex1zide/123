@@ -1,0 +1,44 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ═══════════════════════════════════════════════════════
+    // 1. USER DOCUMENTS — Full CRUD only for the document owner
+    // ═══════════════════════════════════════════════════════
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+
+      // Sub-collections (documents, chat_history, etc.)
+      match /{subcollection=**} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════
+    // 2. KNOWLEDGE BASE — Read-only for all authenticated users
+    //    Contains Kazakh legislation articles for RAG pipeline
+    // ═══════════════════════════════════════════════════════
+    match /knowledge_base/{articleId} {
+      allow read: if request.auth != null;
+      allow write: if false; // Admin SDK only (server-side seeding)
+    }
+
+    // ═══════════════════════════════════════════════════════
+    // 3. LAWYERS MARKETPLACE — Read-only for authenticated users
+    //    Lawyer profiles are managed by admins only
+    // ═══════════════════════════════════════════════════════
+    match /lawyers/{lawyerId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null; // For auto-seeding (remove in production)
+      allow update, delete: if false; // Admin SDK only
+    }
+
+    // ═══════════════════════════════════════════════════════
+    // 4. DEFAULT DENY — Block everything else
+    // ═══════════════════════════════════════════════════════
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
