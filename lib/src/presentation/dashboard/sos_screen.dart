@@ -1,16 +1,22 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:app/l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SosScreen extends StatefulWidget {
+/// Provider for the emergency number. 
+/// Currently returns a static value, but can easily be wired to Firebase Remote Config.
+final emergencyNumberProvider = Provider<String>((ref) => '+77001234567');
+
+class SosScreen extends ConsumerStatefulWidget {
   const SosScreen({super.key});
 
   @override
-  State<SosScreen> createState() => _SosScreenState();
+  ConsumerState<SosScreen> createState() => _SosScreenState();
 }
 
-class _SosScreenState extends State<SosScreen> with SingleTickerProviderStateMixin {
+class _SosScreenState extends ConsumerState<SosScreen> with SingleTickerProviderStateMixin {
   late final AnimationController _pulseController;
   late final Animation<double> _pulseAnimation;
 
@@ -34,8 +40,10 @@ class _SosScreenState extends State<SosScreen> with SingleTickerProviderStateMix
   }
 
   Future<void> _callLawyer() async {
+    HapticFeedback.mediumImpact();
     final l = AppLocalizations.of(context)!;
-    final uri = Uri.parse('tel:+77001234567'); // Dummy emergency lawyer number
+    final number = ref.read(emergencyNumberProvider);
+    final uri = Uri.parse('tel:$number');
     try {
       if (!await launchUrl(uri)) {
         if (!mounted) return;

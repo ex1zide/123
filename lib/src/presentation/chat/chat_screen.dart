@@ -11,7 +11,9 @@ import 'widgets/paywall_sheet.dart';
 /// Premium AI Messenger Screen.
 /// Utilizes a highly optimized reverse ListView and Glassmorphic inputs.
 class ChatScreen extends ConsumerStatefulWidget {
-  const ChatScreen({super.key});
+  const ChatScreen({super.key, this.initialPrompt});
+
+  final String? initialPrompt;
 
   @override
   ConsumerState<ChatScreen> createState() => _ChatScreenState();
@@ -19,6 +21,14 @@ class ChatScreen extends ConsumerStatefulWidget {
 
 class _ChatScreenState extends ConsumerState<ChatScreen> {
   final _textController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialPrompt != null) {
+      _textController.text = widget.initialPrompt!;
+    }
+  }
 
   Future<void> _handleSend() async {
     final text = _textController.text.trim();

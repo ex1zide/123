@@ -6,8 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../data/repositories/auth_repository.dart';
-import '../../data/repositories/chat_repository.dart';
-import '../chat/chat_controller.dart';
+import '../../data/providers/subscription_provider.dart';
 
 part 'dashboard_controller.g.dart';
 
@@ -51,16 +50,15 @@ class DashboardController extends _$DashboardController {
     final user = ref.read(firebaseAuthProvider).currentUser;
     final displayName = _resolveDisplayName(user);
 
-    // Watch the chat state to dynamically update query limits
-    final chatState = ref.watch(chatControllerProvider);
-    final maxQueries = ref.read(chatRepositoryProvider).maxFreeMessages;
+    // Read query counts from the server-synced subscription stream
+    final subState = ref.watch(subscriptionControllerProvider).value;
 
     return DashboardState(
       greetingPeriod: greetingPeriod,
       displayName: displayName,
       isOnline: isOnline,
-      usedAiQueries: (chatState.value ?? []).where((m) => m.isUser).length,
-      maxAiQueries: maxQueries,
+      usedAiQueries: subState?.usedQueries ?? 0,
+      maxAiQueries: subState?.maxQueries ?? 10,
     );
   }
 
@@ -74,15 +72,14 @@ class DashboardController extends _$DashboardController {
       final user = ref.read(firebaseAuthProvider).currentUser;
       final displayName = _resolveDisplayName(user);
 
-      final chatState = ref.read(chatControllerProvider);
-      final maxQueries = ref.read(chatRepositoryProvider).maxFreeMessages;
+      final subState = ref.read(subscriptionControllerProvider).value;
 
       return DashboardState(
         greetingPeriod: greetingPeriod,
         displayName: displayName,
         isOnline: isOnline,
-        usedAiQueries: (chatState.value ?? []).where((m) => m.isUser).length,
-        maxAiQueries: maxQueries,
+        usedAiQueries: subState?.usedQueries ?? 0,
+        maxAiQueries: subState?.maxQueries ?? 10,
       );
     });
   }

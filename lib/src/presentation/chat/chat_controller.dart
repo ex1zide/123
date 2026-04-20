@@ -5,11 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../data/repositories/chat_repository.dart';
-import '../../data/providers/subscription_provider.dart';
 
 part 'chat_controller.g.dart';
 
-/// Single message entity.
+/// Single message entity used by the UI.
 class ChatMessage {
   const ChatMessage({
     required this.id,
@@ -43,7 +42,10 @@ class ChatMessage {
 }
 
 /// Controls the chat state as an AsyncValue list of messages.
-/// State transitions handle loading (AI typing) and errors (API errors).
+///
+/// All rate limiting and subscription checks are now handled SERVER-SIDE
+/// by the Cloud Function `askAI`. If the server returns 429,
+/// [ChatRepository] throws [PaywallRequiredException] which the UI catches.
 @riverpod
 class ChatController extends _$ChatController {
   static const _cacheKey = 'chat_messages_cache';
@@ -69,22 +71,13 @@ class ChatController extends _$ChatController {
     await prefs.setString(_cacheKey, jsonEncode(jsonList));
   }
 
-  /// Sends a message and updates the AsyncValue state accordingly.
-  /// Returns `true` if sent, `false` if the free limit was exceeded.
+  /// Sends a message to the Cloud Function and updates state.
+  ///
+  /// Returns `true` if sent successfully.
+  /// Returns `false` if the server returned 429 (PaywallRequired).
   Future<bool> sendMessage(String text) async {
     final repo = ref.read(chatRepositoryProvider);
     final previousMessages = state.asData?.value ?? [];
-    
-    // Check subscription limits via the subscription provider
-    final subState = ref.read(subscriptionControllerProvider).value;
-    if (subState != null && subState.isLimitReached) {
-      return false; // Show paywall
-    }
-
-    // Consume a query from the subscription quota
-    if (subState != null && !subState.isPaid) {
-      await ref.read(subscriptionControllerProvider.notifier).consumeQuery();
-    }
 
     // Append user message immediately
     final userMsg = ChatMessage(
@@ -96,7 +89,7 @@ class ChatController extends _$ChatController {
     
     final updatedMessages = [...previousMessages, userMsg];
 
-    // Transition to loading state, preserving the messages so UI doesn't flash
+    // Transition to loading state, preserving messages
     state = const AsyncLoading<List<ChatMessage>>().copyWithPrevious(
       AsyncData(updatedMessages),
     );
@@ -110,17 +103,20 @@ class ChatController extends _$ChatController {
         timestamp: DateTime.now(),
       );
 
-      // Transition back to data state with the new AI message appended
       final updatedList = [...updatedMessages, aiMsg];
       state = AsyncData(updatedList);
       _saveToCache(updatedList);
       return true;
+    } on PaywallRequiredException {
+      // Server returned 429 — revert to previous state, show paywall
+      state = AsyncData(previousMessages);
+      return false;
     } catch (e, st) {
-      // Transition to error state, preserving the user message history
+      // Other errors — preserve user message, show error
       state = AsyncError<List<ChatMessage>>(e, st).copyWithPrevious(
         AsyncData(updatedMessages),
       );
-      return true; // Still "sent" the user message, error captured in state
+      return true;
     }
   }
 }

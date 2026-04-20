@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:app/l10n/app_localizations.dart';
+import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import '../../widgets/shimmer_placeholder.dart';
 
 part 'history_screen.g.dart';
@@ -106,82 +108,95 @@ class _HistoryCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: isAi
-                  ? Colors.blueGrey.withValues(alpha: 0.1)
-                  : Colors.white.withValues(alpha: 0.05),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(
-                color: isAi
-                    ? Colors.blueGrey.withValues(alpha: 0.2)
-                    : Colors.white.withValues(alpha: 0.1),
-              ),
-            ),
-            child: Row(
-              children: [
-                // Icon Block
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
+          child: Material(
+            color: isAi
+                ? Colors.blueGrey.withValues(alpha: 0.1)
+                : Colors.white.withValues(alpha: 0.05),
+            child: InkWell(
+              onTap: () {
+                HapticFeedback.mediumImpact();
+                if (isAi) {
+                  // Push to chat with history context (assuming endpoint handles it)
+                  context.push('/app/chat');
+                } else {
+                  context.push('/app/marketplace');
+                }
+              },
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
                     color: isAi
-                        ? Colors.blue.withValues(alpha: 0.1)
-                        : gold.withValues(alpha: 0.1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    isAi ? Icons.smart_toy_rounded : Icons.person_rounded,
-                    color: isAi ? Colors.blue : gold,
+                        ? Colors.blueGrey.withValues(alpha: 0.2)
+                        : Colors.white.withValues(alpha: 0.1),
                   ),
                 ),
-                const SizedBox(width: 16),
-                
-                // Info Block
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
+                child: Row(
+                  children: [
+                    // Icon Block
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: isAi
+                            ? Colors.blue.withValues(alpha: 0.1)
+                            : gold.withValues(alpha: 0.1),
+                        shape: BoxShape.circle,
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        dateStr,
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: theme.colorScheme.onSurfaceVariant,
-                        ),
+                      child: Icon(
+                        isAi ? Icons.smart_toy_rounded : Icons.person_rounded,
+                        color: isAi ? Colors.blue : gold,
                       ),
-                    ],
-                  ),
-                ),
+                    ),
+                    const SizedBox(width: 16),
+                    
+                    // Info Block
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            title,
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            dateStr,
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: theme.colorScheme.onSurfaceVariant,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
 
-                // Badge Block
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: isPending
-                        ? gold.withValues(alpha: 0.1)
-                        : Colors.green.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: isPending
-                          ? gold.withValues(alpha: 0.3)
-                          : Colors.green.withValues(alpha: 0.3),
+                    // Badge Block
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: isPending
+                            ? gold.withValues(alpha: 0.1)
+                            : Colors.green.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: isPending
+                              ? gold.withValues(alpha: 0.3)
+                              : Colors.green.withValues(alpha: 0.3),
+                        ),
+                      ),
+                      child: Text(
+                        isPending ? l.historyPending : l.historyCompleted,
+                        style: theme.textTheme.labelSmall?.copyWith(
+                          color: isPending ? gold : Colors.green,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ),
-                  ),
-                  child: Text(
-                    isPending ? l.historyPending : l.historyCompleted,
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: isPending ? gold : Colors.green,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),

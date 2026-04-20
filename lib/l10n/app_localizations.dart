@@ -1219,6 +1219,114 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Перейдите на PRO для безлимитного доступа к ИИ'**
   String get paywallUpgradeHint;
+
+  /// No description provided for @contractAnalyzerTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Анализ договора'**
+  String get contractAnalyzerTitle;
+
+  /// No description provided for @contractAnalyzerUploadTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'ИИ-Аудит договора'**
+  String get contractAnalyzerUploadTitle;
+
+  /// No description provided for @contractAnalyzerUploadDesc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Загрузите фото или PDF договора — ИИ-юрист найдёт скрытые риски, штрафы и невыгодные условия'**
+  String get contractAnalyzerUploadDesc;
+
+  /// No description provided for @contractAnalyzerPickImage.
+  ///
+  /// In ru, this message translates to:
+  /// **'Загрузить фото'**
+  String get contractAnalyzerPickImage;
+
+  /// No description provided for @contractAnalyzerPickPdf.
+  ///
+  /// In ru, this message translates to:
+  /// **'Загрузить PDF'**
+  String get contractAnalyzerPickPdf;
+
+  /// No description provided for @contractAnalyzerLoading.
+  ///
+  /// In ru, this message translates to:
+  /// **'ИИ-Юрист изучает пункты договора...'**
+  String get contractAnalyzerLoading;
+
+  /// No description provided for @contractAnalyzerCleanTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Отличный договор!'**
+  String get contractAnalyzerCleanTitle;
+
+  /// No description provided for @contractAnalyzerCleanDesc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Юридических рисков не обнаружено. Договор составлен корректно и безопасно.'**
+  String get contractAnalyzerCleanDesc;
+
+  /// No description provided for @contractAnalyzerRisksTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Обнаружены риски'**
+  String get contractAnalyzerRisksTitle;
+
+  /// No description provided for @contractAnalyzerRisksFound.
+  ///
+  /// In ru, this message translates to:
+  /// **'Найдено потенциальных рисков'**
+  String get contractAnalyzerRisksFound;
+
+  /// No description provided for @contractAnalyzerNewScan.
+  ///
+  /// In ru, this message translates to:
+  /// **'Проверить другой договор'**
+  String get contractAnalyzerNewScan;
+
+  /// No description provided for @notificationsTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Уведомления'**
+  String get notificationsTitle;
+
+  /// No description provided for @notificationsEmpty.
+  ///
+  /// In ru, this message translates to:
+  /// **'Нет уведомлений'**
+  String get notificationsEmpty;
+
+  /// No description provided for @notificationsMarkAll.
+  ///
+  /// In ru, this message translates to:
+  /// **'Прочитать все'**
+  String get notificationsMarkAll;
+
+  /// No description provided for @bookingTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Записаться к {name}'**
+  String bookingTitle(String name);
+
+  /// No description provided for @bookingOnline.
+  ///
+  /// In ru, this message translates to:
+  /// **'Онлайн-чат'**
+  String get bookingOnline;
+
+  /// No description provided for @bookingOffline.
+  ///
+  /// In ru, this message translates to:
+  /// **'Офлайн-встреча'**
+  String get bookingOffline;
+
+  /// No description provided for @bookingSuccess.
+  ///
+  /// In ru, this message translates to:
+  /// **'✅ Заявка к {name} отправлена!'**
+  String bookingSuccess(String name);
 }
 
 class _AppLocalizationsDelegate

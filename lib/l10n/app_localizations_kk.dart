@@ -604,4 +604,65 @@ class AppLocalizationsKk extends AppLocalizations {
   @override
   String get paywallUpgradeHint =>
       'ЖИ-ға шексіз қолжетімділік үшін PRO-ға көшіңіз';
+
+  @override
+  String get contractAnalyzerTitle => 'Шарт талдау';
+
+  @override
+  String get contractAnalyzerUploadTitle => 'ЖИ-Шарт аудиті';
+
+  @override
+  String get contractAnalyzerUploadDesc =>
+      'Шарттың фотосуретін немесе PDF жүктеңіз — ЖИ-заңгер жасырын тәуекелдер мен жазаларды табады';
+
+  @override
+  String get contractAnalyzerPickImage => 'Фото жүктеу';
+
+  @override
+  String get contractAnalyzerPickPdf => 'PDF жүктеу';
+
+  @override
+  String get contractAnalyzerLoading =>
+      'ЖИ-Заңгер шарт тармақтарын зерттеуде...';
+
+  @override
+  String get contractAnalyzerCleanTitle => 'Тамаша шарт!';
+
+  @override
+  String get contractAnalyzerCleanDesc =>
+      'Заңдық тәуекелдер табылмады. Шарт дұрыс және қауіпсіз жасалған.';
+
+  @override
+  String get contractAnalyzerRisksTitle => 'Тәуекелдер анықталды';
+
+  @override
+  String get contractAnalyzerRisksFound => 'Табылған ықтимал тәуекелдер';
+
+  @override
+  String get contractAnalyzerNewScan => 'Басқа шартты тексеру';
+
+  @override
+  String get notificationsTitle => 'Хабарламалар';
+
+  @override
+  String get notificationsEmpty => 'Хабарламалар жоқ';
+
+  @override
+  String get notificationsMarkAll => 'Барлығын оқу';
+
+  @override
+  String bookingTitle(String name) {
+    return '$name жазылу';
+  }
+
+  @override
+  String get bookingOnline => 'Онлайн-чат';
+
+  @override
+  String get bookingOffline => 'Офлайн-кездесу';
+
+  @override
+  String bookingSuccess(String name) {
+    return '✅ $name өтінім жіберілді!';
+  }
 }

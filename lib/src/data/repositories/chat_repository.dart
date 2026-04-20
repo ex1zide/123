@@ -1,11 +1,9 @@
-import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import 'knowledge_repository.dart';
 
 part 'chat_repository.g.dart';
 
-/// A single chat message exchanged between the user and Gemini AI.
+/// A single chat message exchanged between the user and the AI.
 class ChatMessage {
   const ChatMessage({
     required this.id,
@@ -20,75 +18,59 @@ class ChatMessage {
   final DateTime timestamp;
 }
 
-/// RAG-enhanced Gemini AI legal-assistant service.
+/// Custom exception thrown when the server returns 429 (limit reached).
+/// The UI layer catches this to show the Paywall.
+class PaywallRequiredException implements Exception {
+  const PaywallRequiredException([this.message = 'Лимит бесплатных запросов исчерпан']);
+  final String message;
+
+  @override
+  String toString() => message;
+}
+
+/// Server-side AI legal assistant service.
 ///
-/// For each user question:
-/// 1. Retrieves relevant Kazakh legal articles from Firestore
-/// 2. Injects them as grounded context into the Gemini prompt
-/// 3. Returns a legally-grounded AI response
+/// All logic (RAG, Gemini, rate limiting) runs on Firebase Cloud Functions.
+/// The client only sends the question and receives the answer.
+/// API keys NEVER touch the client binary.
 @Riverpod(keepAlive: true)
 ChatRepository chatRepository(ChatRepositoryRef ref) {
-  final knowledgeRepo = ref.read(knowledgeRepositoryProvider);
-  return ChatRepository(knowledgeRepo);
+  return ChatRepository();
 }
 
 class ChatRepository {
-  ChatRepository(this._knowledgeRepo);
+  ChatRepository();
 
-  final KnowledgeRepository _knowledgeRepo;
-  static const _maxFreeMessages = 10;
-
-  /// Enterprise-grade system instruction for Gemini.
-  static const _systemPrompt =
-      'Ты — корпоративный ИИ-юрист Республики Казахстан. '
-      'Твоя задача — давать точные юридические консультации, '
-      'строго основываясь на переданном контексте (законодательстве РК). '
-      'КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНО выдумывать статьи, нормы или факты. '
-      'Если в переданном контексте нет ответа на вопрос пользователя, '
-      'честно сообщи об этом и предложи обратиться к живому юристу '
-      'через маркетплейс LegalHelp KZ. '
-      'Формат ответа: структурированный, с нумерацией пунктов, '
-      'ссылками на конкретные статьи и кодексы. '
-      'Язык: отвечай на том языке, на котором задан вопрос.';
-
-  /// The Gemini model instance.
-  final _model = GenerativeModel(
-    model: 'gemini-1.5-flash',
-    apiKey: const String.fromEnvironment('GEMINI_API_KEY', defaultValue: 'YOUR_API_KEY_HERE'),
-    systemInstruction: Content.system(_systemPrompt),
+  final _askAI = FirebaseFunctions.instance.httpsCallable(
+    'askAI',
+    options: HttpsCallableOptions(timeout: const Duration(seconds: 30)),
   );
 
-  /// Returns `true` if the user has exceeded the free-tier limit.
-  bool isLimitExceeded(int messageCount) {
-    return messageCount >= _maxFreeMessages;
-  }
-
-  /// The maximum number of free messages allowed.
-  int get maxFreeMessages => _maxFreeMessages;
-
-  /// RAG-enhanced AI response pipeline:
-  /// 1. Search knowledge base for relevant articles
-  /// 2. Build grounded context prompt
-  /// 3. Send combined prompt to Gemini
+  /// Sends a question to the Cloud Function and returns the AI response.
+  ///
+  /// Throws [PaywallRequiredException] if the server responds with 429.
+  /// Throws [Exception] for all other errors.
   Future<String> getAiResponse(String userMessage) async {
     try {
-      // ── Step 1: RAG Retrieval ──
-      final articles = await _knowledgeRepo.searchRelevantArticles(userMessage);
+      final result = await _askAI.call<Map<String, dynamic>>({
+        'question': userMessage,
+      });
 
-      // ── Step 2: Build grounded context ──
-      final contextPrompt = _knowledgeRepo.buildContextPrompt(articles);
-
-      // ── Step 3: Send to Gemini with context ──
-      final fullPrompt = '$contextPrompt\n\nВОПРОС ПОЛЬЗОВАТЕЛЯ:\n$userMessage';
-      final content = [Content.text(fullPrompt)];
-      final response = await _model.generateContent(content);
-
-      return response.text ?? 'Извините, я не смог сформулировать ответ.';
-    } catch (e) {
-      final errorStr = e.toString();
-      if (errorStr.contains('API key not valid') || errorStr.contains('YOUR_API_KEY')) {
-        throw Exception('Недействительный API-ключ Gemini. Замените YOUR_API_KEY_HERE на реальный ключ.');
+      final data = result.data;
+      return (data['answer'] as String?) ??
+          'Извините, я не смог сформулировать ответ.';
+    } on FirebaseFunctionsException catch (e) {
+      // 429 — Resource Exhausted → Show Paywall
+      if (e.code == 'resource-exhausted') {
+        throw const PaywallRequiredException();
       }
+      // Auth errors
+      if (e.code == 'unauthenticated') {
+        throw Exception('Войдите в аккаунт для использования ИИ-юриста.');
+      }
+      // All other server errors
+      throw Exception('Ошибка сервера: ${e.message}');
+    } catch (e) {
       throw Exception('Ошибка при обращении к ИИ-Юристу: $e');
     }
   }

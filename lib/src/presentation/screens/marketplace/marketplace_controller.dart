@@ -49,7 +49,7 @@ Future<void> seedLawyersToFirestore(FirebaseFirestore firestore) async {
       'rating': 4.9,
       'reviewsCount': 124,
       'hourlyRate': 25000,
-      'imageUrl': 'https://i.pravatar.cc/150?u=aslan',
+      'imageUrl': 'https://ui-avatars.com/api/?name=Аслан+Болатов&background=D4A843&color=0A0A0A',
     },
     {
       'name': 'Динара Смагулова',
@@ -57,7 +57,7 @@ Future<void> seedLawyersToFirestore(FirebaseFirestore firestore) async {
       'rating': 4.8,
       'reviewsCount': 95,
       'hourlyRate': 15000,
-      'imageUrl': 'https://i.pravatar.cc/150?u=dinara',
+      'imageUrl': 'https://ui-avatars.com/api/?name=Динара+Смагулова&background=D4A843&color=0A0A0A',
     },
     {
       'name': 'Тимур Ахметов',
@@ -65,7 +65,7 @@ Future<void> seedLawyersToFirestore(FirebaseFirestore firestore) async {
       'rating': 5.0,
       'reviewsCount': 150,
       'hourlyRate': 30000,
-      'imageUrl': 'https://i.pravatar.cc/150?u=timur',
+      'imageUrl': 'https://ui-avatars.com/api/?name=Тимур+Ахметов&background=D4A843&color=0A0A0A',
     },
     {
       'name': 'Мадина Касенова',
@@ -73,7 +73,7 @@ Future<void> seedLawyersToFirestore(FirebaseFirestore firestore) async {
       'rating': 4.6,
       'reviewsCount': 60,
       'hourlyRate': 12000,
-      'imageUrl': 'https://i.pravatar.cc/150?u=madina',
+      'imageUrl': 'https://ui-avatars.com/api/?name=Мадина+Касенова&background=D4A843&color=0A0A0A',
     },
     {
       'name': 'Руслан Ибрагимов',
@@ -81,7 +81,7 @@ Future<void> seedLawyersToFirestore(FirebaseFirestore firestore) async {
       'rating': 4.7,
       'reviewsCount': 85,
       'hourlyRate': 18000,
-      'imageUrl': 'https://i.pravatar.cc/150?u=ruslan',
+      'imageUrl': 'https://ui-avatars.com/api/?name=Руслан+Ибрагимов&background=D4A843&color=0A0A0A',
     },
   ];
 

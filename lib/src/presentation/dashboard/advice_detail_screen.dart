@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 
 class AdviceDetailScreen extends StatelessWidget {
   const AdviceDetailScreen({
@@ -119,7 +121,9 @@ class AdviceDetailScreen extends StatelessWidget {
                         icon: const Icon(Icons.chat_bubble_outline),
                         label: const Text('Спросить ИИ об этом'),
                         onPressed: () {
-                          // TODO: Navigate to chat and pre-fill question
+                          HapticFeedback.mediumImpact();
+                          final adviceText = 'Я хотел бы узнать больше про: $title. $subtitle';
+                          context.push('/app/chat', extra: adviceText);
                         },
                       ),
                     ),

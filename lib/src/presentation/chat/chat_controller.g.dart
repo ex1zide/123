@@ -6,10 +6,13 @@ part of 'chat_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$chatControllerHash() => r'900cc5b47b868d387f7b3f6e0b12a9a7dbce73d9';
+String _$chatControllerHash() => r'8d5446e26118cf05f558f71b663c2e58392aac28';
 
 /// Controls the chat state as an AsyncValue list of messages.
-/// State transitions handle loading (AI typing) and errors (API errors).
+///
+/// All rate limiting and subscription checks are now handled SERVER-SIDE
+/// by the Cloud Function `askAI`. If the server returns 429,
+/// [ChatRepository] throws [PaywallRequiredException] which the UI catches.
 ///
 /// Copied from [ChatController].
 @ProviderFor(ChatController)

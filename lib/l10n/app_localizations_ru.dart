@@ -604,4 +604,64 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get paywallUpgradeHint =>
       'Перейдите на PRO для безлимитного доступа к ИИ';
+
+  @override
+  String get contractAnalyzerTitle => 'Анализ договора';
+
+  @override
+  String get contractAnalyzerUploadTitle => 'ИИ-Аудит договора';
+
+  @override
+  String get contractAnalyzerUploadDesc =>
+      'Загрузите фото или PDF договора — ИИ-юрист найдёт скрытые риски, штрафы и невыгодные условия';
+
+  @override
+  String get contractAnalyzerPickImage => 'Загрузить фото';
+
+  @override
+  String get contractAnalyzerPickPdf => 'Загрузить PDF';
+
+  @override
+  String get contractAnalyzerLoading => 'ИИ-Юрист изучает пункты договора...';
+
+  @override
+  String get contractAnalyzerCleanTitle => 'Отличный договор!';
+
+  @override
+  String get contractAnalyzerCleanDesc =>
+      'Юридических рисков не обнаружено. Договор составлен корректно и безопасно.';
+
+  @override
+  String get contractAnalyzerRisksTitle => 'Обнаружены риски';
+
+  @override
+  String get contractAnalyzerRisksFound => 'Найдено потенциальных рисков';
+
+  @override
+  String get contractAnalyzerNewScan => 'Проверить другой договор';
+
+  @override
+  String get notificationsTitle => 'Уведомления';
+
+  @override
+  String get notificationsEmpty => 'Нет уведомлений';
+
+  @override
+  String get notificationsMarkAll => 'Прочитать все';
+
+  @override
+  String bookingTitle(String name) {
+    return 'Записаться к $name';
+  }
+
+  @override
+  String get bookingOnline => 'Онлайн-чат';
+
+  @override
+  String get bookingOffline => 'Офлайн-встреча';
+
+  @override
+  String bookingSuccess(String name) {
+    return '✅ Заявка к $name отправлена!';
+  }
 }

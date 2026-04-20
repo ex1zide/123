@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:app/l10n/app_localizations.dart';
 
-/// Horizontal carousel of quick actions.
+import '../../../data/providers/subscription_provider.dart';
+
+/// Horizontal carousel of quick actions with PRO feature guards.
 ///
 /// Features premium 3D cards with Deep Black to Dark Grey gradients
-/// and subtle gold borders.
-class QuickActionsGrid extends StatelessWidget {
+/// and subtle gold borders. PRO-only features show a lock icon for Free users.
+class QuickActionsGrid extends ConsumerWidget {
   const QuickActionsGrid({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l = AppLocalizations.of(context)!;
+    final subState = ref.watch(subscriptionControllerProvider).value;
+    final isFree = !(subState?.isPaid ?? false);
 
     return SizedBox(
       height: 140,
@@ -25,7 +30,14 @@ class QuickActionsGrid extends StatelessWidget {
             subtitle: l.quickScannerSub,
             icon: Icons.document_scanner_rounded,
             badgeText: 'AI',
-            onTap: () => context.push('/app/dashboard/scanner'),
+            isLocked: isFree,
+            onTap: () {
+              if (isFree) {
+                context.push('/subscription');
+              } else {
+                context.push('/app/dashboard/scanner');
+              }
+            },
           ),
           const SizedBox(width: 12),
           _ActionCard(
@@ -56,6 +68,7 @@ class _ActionCard extends StatelessWidget {
     required this.onTap,
     this.badgeText,
     this.isAlert = false,
+    this.isLocked = false,
   });
 
   final String title;
@@ -64,6 +77,7 @@ class _ActionCard extends StatelessWidget {
   final VoidCallback onTap;
   final String? badgeText;
   final bool isAlert;
+  final bool isLocked;
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +122,7 @@ class _ActionCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Top row (Icon + Badge)
+                // Top row (Icon + Badge/Lock)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -126,7 +140,20 @@ class _ActionCard extends StatelessWidget {
                       ),
                       child: Icon(icon, size: 24, color: primaryColor),
                     ),
-                    if (badgeText != null)
+                    if (isLocked)
+                      Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: gold.withValues(alpha: 0.2),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.lock_rounded,
+                          size: 14,
+                          color: gold,
+                        ),
+                      )
+                    else if (badgeText != null)
                       Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 6,

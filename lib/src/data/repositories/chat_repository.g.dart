@@ -6,14 +6,13 @@ part of 'chat_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$chatRepositoryHash() => r'f73d92327f03101161e0655840138ef5b4241def';
+String _$chatRepositoryHash() => r'92dfea17828d8f30908d84dd2bb1cbb926d09880';
 
-/// RAG-enhanced Gemini AI legal-assistant service.
+/// Server-side AI legal assistant service.
 ///
-/// For each user question:
-/// 1. Retrieves relevant Kazakh legal articles from Firestore
-/// 2. Injects them as grounded context into the Gemini prompt
-/// 3. Returns a legally-grounded AI response
+/// All logic (RAG, Gemini, rate limiting) runs on Firebase Cloud Functions.
+/// The client only sends the question and receives the answer.
+/// API keys NEVER touch the client binary.
 ///
 /// Copied from [chatRepository].
 @ProviderFor(chatRepository)

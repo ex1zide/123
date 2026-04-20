@@ -9,7 +9,7 @@ import '../../data/repositories/auth_repository.dart';
 import '../chat/chat_screen.dart';
 import '../screens/auth/auth_screen.dart';
 import '../dashboard/dashboard_screen.dart';
-import '../dashboard/scanner_screen.dart';
+import '../dashboard/contract_analyzer_screen.dart';
 import '../dashboard/advice_detail_screen.dart';
 import '../screens/marketplace/marketplace_screen.dart';
 import '../dashboard/sos_screen.dart';
@@ -22,6 +22,8 @@ import '../screens/profile/support_screen.dart';
 import '../screens/splash/splash_screen.dart';
 import '../shell/app_shell.dart';
 import '../../data/providers/app_startup_provider.dart';
+import '../screens/admin/admin_panel_screen.dart';
+import '../screens/notifications/notifications_screen.dart';
 
 part 'app_router.g.dart';
 
@@ -41,6 +43,8 @@ abstract final class AppRoutes {
   static const String support = '/app/profile/support';
   static const String scanner = '/app/dashboard/scanner';
   static const String sos = '/app/dashboard/sos';
+  static const String admin = '/admin';
+  static const String notifications = '/notifications';
 }
 
 // ────────────────────── GoRouter Provider ──────────────────────
@@ -107,6 +111,20 @@ GoRouter appRouter(Ref ref) {
         name: 'subscription',
         builder: (context, state) => const SubscriptionScreen(),
       ),
+      // Admin panel (full-screen, outside ShellRoute)
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: AppRoutes.admin,
+        name: 'admin',
+        builder: (context, state) => const AdminPanelScreen(),
+      ),
+      // Notifications (full-screen)
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: AppRoutes.notifications,
+        name: 'notifications',
+        builder: (context, state) => const NotificationsScreen(),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return AppShell(navigationShell: navigationShell);
@@ -122,7 +140,7 @@ GoRouter appRouter(Ref ref) {
                 routes: [
                   GoRoute(
                     path: 'scanner',
-                    builder: (context, state) => const ScannerScreen(),
+                    builder: (context, state) => const ContractAnalyzerScreen(),
                   ),
                   GoRoute(
                     path: 'sos',
@@ -150,7 +168,10 @@ GoRouter appRouter(Ref ref) {
               GoRoute(
                 path: AppRoutes.chat,
                 name: 'chat',
-                builder: (context, state) => const ChatScreen(),
+                builder: (context, state) {
+                  final initialPrompt = state.extra as String?;
+                  return ChatScreen(initialPrompt: initialPrompt);
+                },
               ),
             ],
           ),

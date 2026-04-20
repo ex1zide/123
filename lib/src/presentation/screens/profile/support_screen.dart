@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:app/l10n/app_localizations.dart';
 
 class SupportScreen extends StatelessWidget {
@@ -45,10 +47,30 @@ class SupportScreen extends StatelessWidget {
                   l.supportContactOp,
                   style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
                 ),
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(l.supportTelegramSnack)),
-                  );
+                onPressed: () async {
+                  HapticFeedback.mediumImpact();
+                  final uri = Uri.parse('tg://resolve?domain=legalhelpkz_support');
+                  try {
+                    if (!await launchUrl(uri)) {
+                      if (!context.mounted) return;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(l.supportTelegramSnack),
+                          backgroundColor: Colors.redAccent,
+                          behavior: SnackBarBehavior.floating,
+                        ),
+                      );
+                    }
+                  } catch (e) {
+                    if (!context.mounted) return;
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: const Text('Не удалось открыть Telegram. Пожалуйста, установите приложение.'),
+                        backgroundColor: Colors.redAccent,
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  }
                 },
               ),
             ),

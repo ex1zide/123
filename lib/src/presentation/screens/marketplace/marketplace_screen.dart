@@ -1,9 +1,11 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:app/l10n/app_localizations.dart';
 
+import '../../../data/providers/subscription_provider.dart';
 import '../../widgets/shimmer_placeholder.dart';
 import 'marketplace_controller.dart';
 
@@ -11,6 +13,7 @@ import 'marketplace_controller.dart';
 ///
 /// Displays real-time updates from Firebase Firestore.
 /// Employs Glassmorphism and Deep Gold premium designs.
+/// Contact button includes Paywall Interceptor for top-rated lawyers.
 class MarketplaceScreen extends ConsumerStatefulWidget {
   const MarketplaceScreen({super.key});
 
@@ -235,13 +238,151 @@ class _MarketplaceEmptyState extends StatelessWidget {
   }
 }
 
-class _LawyerCard extends StatelessWidget {
+// ══════════════════════════════════════════════════════════
+// Lawyer Card with Booking & Paywall Interceptor
+// ══════════════════════════════════════════════════════════
+
+class _LawyerCard extends ConsumerWidget {
   const _LawyerCard({required this.lawyer});
 
   final LawyerProfile lawyer;
 
+  /// Top lawyers (rating >= 4.8) require PRO subscription.
+  bool get isTopLawyer => lawyer.rating >= 4.8;
+
+  void _handleContact(BuildContext context, WidgetRef ref) {
+    HapticFeedback.mediumImpact();
+    final subState = ref.read(subscriptionControllerProvider).value;
+    final isFree = !(subState?.isPaid ?? false);
+
+    // Paywall Interceptor: top-rated lawyers require PRO
+    if (isTopLawyer && isFree) {
+      context.push('/subscription');
+      return;
+    }
+
+    // Show booking bottom sheet
+    _showBookingSheet(context);
+  }
+
+  void _showBookingSheet(BuildContext context) {
+    final theme = Theme.of(context);
+    final gold = theme.colorScheme.primary;
+    final l = AppLocalizations.of(context)!;
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) {
+        return ClipRRect(
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(24, 16, 24, 40),
+              decoration: BoxDecoration(
+                color: const Color(0xFF1A1A1A).withValues(alpha: 0.9),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+                border: Border(
+                  top: BorderSide(color: gold.withValues(alpha: 0.3), width: 1),
+                ),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Handle
+                  Container(
+                    width: 40,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.2),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    l.bookingTitle(lawyer.name),
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w800,
+                      color: gold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 24),
+
+                  // Online Chat option
+                  SizedBox(
+                    width: double.infinity,
+                    height: 56,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: gold,
+                        foregroundColor: const Color(0xFF1A1400),
+                        elevation: 8,
+                        shadowColor: gold.withValues(alpha: 0.4),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                      icon: const Icon(Icons.chat_bubble_rounded),
+                      label: Text(
+                        l.bookingOnline,
+                        style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(ctx);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(l.bookingSuccess(lawyer.name)),
+                            backgroundColor: gold,
+                            behavior: SnackBarBehavior.floating,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+
+                  // Offline meeting option
+                  SizedBox(
+                    width: double.infinity,
+                    height: 56,
+                    child: OutlinedButton.icon(
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: gold,
+                        side: BorderSide(color: gold.withValues(alpha: 0.5)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                      icon: const Icon(Icons.location_on_rounded),
+                      label: Text(
+                        l.bookingOffline,
+                        style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(ctx);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(l.bookingSuccess(lawyer.name)),
+                            backgroundColor: gold,
+                            behavior: SnackBarBehavior.floating,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final gold = theme.colorScheme.primary;
     final l = AppLocalizations.of(context)!;
@@ -288,11 +429,34 @@ class _LawyerCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      lawyer.name,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            lawyer.name,
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                        // Top lawyer badge
+                        if (isTopLawyer)
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: gold.withValues(alpha: 0.15),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(
+                              'ТОП',
+                              style: TextStyle(
+                                color: gold,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                          ),
+                      ],
                     ),
                     const SizedBox(height: 2),
                     Text(
@@ -335,19 +499,22 @@ class _LawyerCard extends StatelessWidget {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 8),
-                          decoration: BoxDecoration(
-                            color: gold,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Text(
-                            l.marketplaceContact,
-                            style: const TextStyle(
-                              color: Color(0xFF1A1400),
-                              fontWeight: FontWeight.w700,
-                              fontSize: 12,
+                        GestureDetector(
+                          onTap: () => _handleContact(context, ref),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 8),
+                            decoration: BoxDecoration(
+                              color: gold,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              l.marketplaceContact,
+                              style: const TextStyle(
+                                color: Color(0xFF1A1400),
+                                fontWeight: FontWeight.w700,
+                                fontSize: 12,
+                              ),
                             ),
                           ),
                         ),
@@ -373,9 +540,39 @@ class _MarketplaceLoading extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       itemCount: 4,
       separatorBuilder: (context, index) => const SizedBox(height: 16),
-      itemBuilder: (context, index) => const ShimmerPlaceholder(
-        height: 140,
-        borderRadius: 20,
+      itemBuilder: (context, index) => Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surfaceContainer.withValues(alpha: 0.6),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const ShimmerPlaceholder.circle(width: 72, height: 72),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  ShimmerPlaceholder(width: double.infinity, height: 20, borderRadius: 4),
+                  SizedBox(height: 8),
+                  ShimmerPlaceholder(width: 150, height: 14, borderRadius: 4),
+                  SizedBox(height: 16),
+                  ShimmerPlaceholder(width: 100, height: 14, borderRadius: 4),
+                  SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ShimmerPlaceholder(width: 80, height: 20, borderRadius: 4),
+                      ShimmerPlaceholder(width: 100, height: 36, borderRadius: 12),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:app/l10n/app_localizations.dart';
 
 import '../../../data/providers/locale_provider.dart';
@@ -13,9 +15,6 @@ class SettingsScreen extends ConsumerStatefulWidget {
 
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   bool _pushEnabled = true;
-  final bool _darkModeEnabled = true; // Locked
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -81,34 +80,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ),
           ),
           
-          const Divider(height: 32, indent: 16, endIndent: 16),
-
-          // ── Оформление ──
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Text(
-              l.settingsSectionDesign,
-              style: theme.textTheme.labelSmall?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
-                letterSpacing: 1.2,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-          SwitchListTile(
-            title: Text(l.settingsDarkThemeTitle),
-            subtitle: Text(
-              l.settingsDarkThemeSubtitle,
-              style: TextStyle(color: theme.colorScheme.onSurfaceVariant, fontSize: 12),
-            ),
-            value: _darkModeEnabled,
-            activeTrackColor: gold,
-            onChanged: null, // Locked
-            secondary: Icon(Icons.dark_mode_rounded, color: gold),
-          ),
-
-          const Divider(height: 32, indent: 16, endIndent: 16),
-
           // ── Информация ──
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -126,14 +97,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             leading: Icon(Icons.privacy_tip_rounded, color: theme.colorScheme.onSurfaceVariant),
             trailing: Icon(Icons.open_in_new_rounded, size: 20, color: theme.colorScheme.onSurfaceVariant),
             onTap: () {
-              // Open web link
+              HapticFeedback.lightImpact();
+              launchUrl(Uri.parse('https://legalhelp.kz/privacy'), mode: LaunchMode.inAppWebView);
             },
           ),
           ListTile(
             title: Text(l.settingsTerms),
             leading: Icon(Icons.article_rounded, color: theme.colorScheme.onSurfaceVariant),
             trailing: Icon(Icons.open_in_new_rounded, size: 20, color: theme.colorScheme.onSurfaceVariant),
-            onTap: () {},
+            onTap: () {
+              HapticFeedback.lightImpact();
+              launchUrl(Uri.parse('https://legalhelp.kz/terms'), mode: LaunchMode.inAppWebView);
+            },
           ),
         ],
       ),

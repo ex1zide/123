@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:app/l10n/app_localizations.dart';
 
 import '../../../data/providers/subscription_provider.dart';
@@ -91,12 +92,19 @@ class SubscriptionScreen extends ConsumerWidget {
               ],
               isActive: currentPlan == SubscriptionPlan.pro,
               isPro: true,
-              onPressed: () {
-                ref.read(subscriptionControllerProvider.notifier)
-                    .upgradePlan(SubscriptionPlan.pro);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(l.subPaymentInDev)),
-                );
+              onPressed: () async {
+                // Call server-side upgrade (payment gateway placeholder)
+                try {
+                  final callable = FirebaseFunctions.instance.httpsCallable('upgradePlan');
+                  await callable.call({'plan': 'pro'});
+                } catch (_) {
+                  // Payment gateway not yet configured
+                }
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(l.subPaymentInDev)),
+                  );
+                }
               },
             ),
             const SizedBox(height: 16),

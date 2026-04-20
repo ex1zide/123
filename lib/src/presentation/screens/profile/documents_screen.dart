@@ -2,7 +2,9 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:app/l10n/app_localizations.dart';
 import '../../widgets/shimmer_placeholder.dart';
@@ -39,9 +41,8 @@ class DocumentsScreen extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(l.docsFabSnackbar)),
-          );
+          HapticFeedback.mediumImpact();
+          context.push('/app/dashboard/scanner');
         },
         backgroundColor: gold,
         icon: const Icon(Icons.document_scanner_rounded, color: Color(0xFF1A1400)),

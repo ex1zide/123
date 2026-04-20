@@ -10,6 +10,7 @@ import 'dashboard_controller.dart';
 import 'widgets/ai_search_bar.dart';
 import 'widgets/quick_actions_grid.dart';
 import '../../data/providers/network_provider.dart';
+import '../../data/providers/notifications_provider.dart';
 
 /// Main Dashboard screen.
 /// Designed for high performance (sub-400ms loading) using Slivers
@@ -67,9 +68,28 @@ class _DashboardBody extends ConsumerWidget {
             floating: true,
             title: Text(l.dashboardTitle),
             actions: [
-              IconButton(
-                icon: const Icon(Icons.notifications_outlined),
-                onPressed: () {},
+              Consumer(
+                builder: (context, ref, _) {
+                  final unread = ref.watch(notificationsControllerProvider)
+                      .where((n) => !n.isRead)
+                      .length;
+                  return IconButton(
+                    icon: Badge(
+                      isLabelVisible: unread > 0,
+                      label: Text(
+                        '$unread',
+                        style: const TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      textColor: const Color(0xFF1A1400),
+                      child: const Icon(Icons.notifications_outlined),
+                    ),
+                    onPressed: () => context.push('/notifications'),
+                  );
+                },
               ),
               const SizedBox(width: 8),
             ],

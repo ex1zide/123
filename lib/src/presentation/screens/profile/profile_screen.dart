@@ -8,6 +8,9 @@ import 'package:app/l10n/app_localizations.dart';
 import '../../../data/repositories/auth_repository.dart';
 import '../../../data/providers/subscription_provider.dart';
 
+/// Admin emails with God Mode access.
+const kAdminEmails = ['bimanovaliser@gmail.com'];
+
 /// User Profile screen.
 /// Premium UI utilizing Deep Black / Gold theme & Glassmorphism.
 class ProfileScreen extends ConsumerWidget {
@@ -138,6 +141,26 @@ class ProfileScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 32),
 
+          // ── Admin Panel (God Mode) ──
+          if (!isGuest && kAdminEmails.contains(user.email)) ...[
+            Container(
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surfaceContainer,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: Colors.redAccent.withValues(alpha: 0.2),
+                ),
+              ),
+              child: _MenuTile(
+                icon: Icons.admin_panel_settings,
+                title: 'Панель управления',
+                iconColor: Colors.redAccent,
+                onTap: () => context.push('/admin'),
+              ),
+            ),
+            const SizedBox(height: 32),
+          ],
+
           // ── Auth Action Button ──
           if (isGuest)
             FilledButton.icon(
@@ -263,7 +286,7 @@ class _SubscriptionCard extends StatelessWidget {
                       ),
                     if (isPaid)
                       Text(
-                        '✨ Безлимитный доступ',
+                        'Безлимитный доступ',
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: gold,
                           fontWeight: FontWeight.w600,
@@ -290,11 +313,13 @@ class _MenuTile extends StatelessWidget {
     required this.icon,
     required this.title,
     required this.onTap,
+    this.iconColor,
   });
 
   final IconData icon;
   final String title;
   final VoidCallback onTap;
+  final Color? iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -310,7 +335,7 @@ class _MenuTile extends StatelessWidget {
         ),
         child: Icon(
           icon,
-          color: theme.colorScheme.primary,
+          color: iconColor ?? theme.colorScheme.primary,
           size: 20,
         ),
       ),
